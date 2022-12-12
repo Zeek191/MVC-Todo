@@ -1,0 +1,12 @@
+extends emptyLayout.pug
+
+block body
+    form(method='POST', name='auth', action='/auth')
+        label Username
+            input(name='username', type='text', required)
+        label Password
+            input(name='password', type='password', required)
+        button(type='Submit') Sign in
+
+        if error
+            p= error
