@@ -1,12 +1,12 @@
 import { readFile } from 'fs'
 import path from 'path'
-import { Credentials } from './user'
+import { User } from './user'
 
 export class Auth {
     signIn(
         username: string,
         password: string,
-        cb: (status: boolean) => void
+        cb: (response: false | User) => void
     ): void {
         readFile(
             path.join(__dirname, '../../../src/data/users.json'),
@@ -14,14 +14,14 @@ export class Auth {
             (error, data) => {
                 if (error) console.error('Unexpected issue occured')
 
-                const parsedBody: Credentials[] = JSON.parse(data)
+                const parsedBody: User[] = JSON.parse(data)
                 const foundedUser = parsedBody.filter(
                     (user) =>
                         user.username === username && user.password === password
                 )
 
                 if (!foundedUser.length) return cb(false)
-                cb(true)
+                cb(foundedUser[0])
             }
         )
     }
