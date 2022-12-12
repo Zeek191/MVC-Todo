@@ -1,8 +1,7 @@
-export type Credentials = {
+import type { Task } from './task'
+
+export type User = {
     username: string
     password: string
-}
-
-export interface User extends Credentials {
-    tasks: any
+    tasks?: Task[]
 }

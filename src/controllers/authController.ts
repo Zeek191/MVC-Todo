@@ -2,17 +2,17 @@ import { Request, Response } from 'express'
 import { Auth } from '../models/auth'
 import { createPropertyIfNotEmptyValue } from '../helpers/createPropertyIfNotEmptyValue'
 import { Global } from '../models/global'
-import type { Credentials } from '../models/user'
+import type { User } from '../models/user'
 
-function authController(req: Request<{}, {}, Credentials>, res: Response) {
+function authController(req: Request<{}, {}, User>, res: Response) {
     const { username, password } = req.body
 
     const authController = new Auth()
 
-    authController.signIn(username, password, (status: boolean) => {
-        if (!status) return res.redirect('/?valid=false')
+    authController.signIn(username, password, (response: false | User) => {
+        if (!response) return res.redirect('/?valid=false')
 
-        Global.user = username
+        Global.user = response
         return res.redirect('/dashboard')
     })
 }
