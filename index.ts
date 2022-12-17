@@ -2,6 +2,7 @@ import path from 'path'
 import express, { Express } from 'express'
 import bodyParser from 'body-parser'
 import authRouter from './src/routes/auth'
+import dasboardRouter from './src/routes/dashboard'
 
 const app: Express = express()
 
@@ -11,6 +12,8 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/', authRouter)
+
+app.use('/dashboard', dasboardRouter)
 
 app.get('*', (req, res, next) => {
     res.status(404).send('<h1>Its 404 endpoint</h1>')

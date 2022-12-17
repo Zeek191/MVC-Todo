@@ -3,9 +3,18 @@ extends layout.pug
 block body
     h1 tasks
 
-    form(method='POST', action='/add-task')
-    label Title
-        input(type='text', name='title')
-    label Description
-        input(type='text', name='description')
-    button(type='submit') Add task
+    form(method='POST', name='add-task', action='dashboard/add-task')
+        label Title
+            input(type='text', name='title')
+        label Description
+            input(type='text', name='description')
+        button(type='submit') Add task
+
+    if tasks.length > 0
+        ul
+            each task in tasks
+                li 
+                    |
+                    |
+                    h2= task.title
+                    p= task.desciprtion
